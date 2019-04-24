@@ -5,11 +5,13 @@ import condition.Condition;
 class LocationCondition extends Condition
 {
 	var locations = new Condition();
-
+	var maskLocations = new Condition();
+	
 	public function new() 
 	{
 		super();
-		this.add(locations.active, true);
+		this.add(locations.active, "==", true);
+		this.add(maskLocations.active, "==", true);
 	}
 
 	public function addLocation(location:String, wildcard:Bool=false):Void 
@@ -20,17 +22,37 @@ class LocationCondition extends Condition
 	
 	public function addLocationMask(location:String, wildcard:Bool=false):Void 
 	{
-		locations.or();
-		locations.add(Location.instance, "!=", location, wildcard);
+		maskLocations.and();
+		maskLocations.add(Location.instance, "!=", location, wildcard);
 	}
 	
 	public function removeLocation(location:String):Void
 	{
-        	locations.remove(Location.instance, "==", location);
+        locations.remove(Location.instance, "==", location);
 	}
 	
 	public function removeLocationMask(location:String):Void
 	{
-        	locations.remove(Location.instance, "!=", location);
+        maskLocations.remove(Location.instance, "!=", location);
+	}
+
+	override public function clone()
+	{
+		var _clone = new LocationCondition();
+		copyCases(this, _clone);
+		_clone.check();
+		return _clone;
+	}
+
+	override function toString():String
+	{
+		var s:String = locations.toString() + "\n";
+		s += numCases + " (";
+		for (i in 0...cases.length) {
+			s += cases[i];
+			if (i < cases.length-1) s += " " + cases[i].bitOperator + " ";
+		}
+		s += ") :: value = " + value;
+		return s;
 	}
 }

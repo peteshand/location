@@ -12,7 +12,7 @@ class LocationBundle implements IBundle
 	public function extend(context:IContext):Void
 	{
 		context.install([
-			LocationViewExtension
+			LocationExtension
 		]);
 	}
 }

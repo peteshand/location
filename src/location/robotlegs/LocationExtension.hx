@@ -11,6 +11,6 @@ class LocationExtension implements DescribedType implements IExtension
 	
 	public function extend(context:IContext):Void
 	{
-		context.injector.map(Location).asSingleton();
+		context.injector.map(Location).toValue(Location.instance);
 	}
 }

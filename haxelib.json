@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["location", "state", "scene", "url"],
 	"description": "collection of classes to store and control application state/location",
-	"version": "1.0.1",
-	"releasenote": "Minor updates",
+	"version": "1.0.2",
+	"releasenote": "Fix injector singleton mapping",
 	"contributors": [ "p.j.shand" ],
 	"classPath": "src/"
 }

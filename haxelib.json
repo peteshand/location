@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["location", "state", "scene", "url"],
 	"description": "collection of classes to store and control application state/location",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"releasenote": "Fix cloning",
 	"contributors": [ "p.j.shand" ],
 	"classPath": "src/"

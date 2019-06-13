@@ -32,6 +32,8 @@ class LocationCondition extends Condition {
 
 	override public function clone() {
 		var _clone = new LocationCondition();
+		_clone.removeAll();
+		copyCases(this, _clone);
 		copyCases(this.locations, _clone.locations);
 		copyCases(this.maskLocations, _clone.maskLocations);
 		_clone.check();

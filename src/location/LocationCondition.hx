@@ -32,8 +32,7 @@ class LocationCondition extends Condition {
 
 	override public function clone() {
 		var _clone = new LocationCondition();
-		_clone.removeAll();
-		copyCases(this, _clone);
+		copyCases(this, _clone, 2);
 		copyCases(this.locations, _clone.locations);
 		copyCases(this.maskLocations, _clone.maskLocations);
 		_clone.check();
@@ -41,14 +40,19 @@ class LocationCondition extends Condition {
 	}
 
 	override function toString():String {
-		var s:String = locations.toString() + "\n";
-		s += numCases + " (";
-		for (i in 0...cases.length) {
-			s += cases[i];
-			if (i < cases.length - 1)
-				s += " " + cases[i].bitOperator + " ";
-		}
-		s += ") :: value = " + value;
+		var s:String = "\n";
+		s += locations.toString() + "\n\n";
+		s += maskLocations.toString() + "\n\n";
+		s += super.toString() + "\n\n";
+		
+		s += "locations.value = " + locations.value + "\n\n";
+		s += "maskLocations.value = " + maskLocations.value + "\n\n";
+		s += "locations.active = " + locations.active + "\n\n";
+		s += "maskLocations.active = " + maskLocations.active + "\n\n";
+		this.check();
+		s += "this.active = " + this.active + "\n\n";
+		s += "this.cases.length = " + this.cases.length + "\n\n";
+		
 		return s;
 	}
 }

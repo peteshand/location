@@ -7,12 +7,8 @@ import robotlegs.bender.framework.api.IContext;
  * ...
  * @author P.J.Shand
  */
-class LocationBundle implements IBundle
-{
-	public function extend(context:IContext):Void
-	{
-		context.install([
-			LocationExtension
-		]);
+class LocationBundle implements IBundle {
+	public function extend(context:IContext):Void {
+		context.install(LocationExtension);
 	}
 }

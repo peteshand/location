@@ -7,10 +7,22 @@ import notifier.Notifier;
  * @author P.J.Shand
  */
 class BaseLocation extends Notifier<String> {
+	#if js
+	@:noCompletion private static function __init__() {
+		untyped Object.defineProperties(BaseLocation.prototype, {
+			"uri": {
+				get: untyped __js__("function () { return this.get_uri (); }"),
+				set: untyped __js__("function (v) { return this.set_uri (v); }")
+			},
+		});
+	}
+	#end
+
 	var updateHistory:Bool = true;
 	var _history = new Array<String>();
 	var queueValue:String;
 	var queuedUpdateHistory:Bool = true;
+	var modifiers:Array<String->String> = [];
 
 	public var queueURI:Bool = true;
 	public var goBackUri:String;
@@ -23,11 +35,18 @@ class BaseLocation extends Notifier<String> {
 		super("");
 	}
 
+	public function addModifier(modifier:String->String) {
+		modifiers.push(modifier);
+	}
+
 	private function get_uri():String {
 		return this.value;
 	}
 
 	private function set_uri(value:String):String {
+		for (modifier in modifiers) {
+			value = modifier(value);
+		}
 		return this.value = value;
 	}
 
@@ -39,11 +58,15 @@ class BaseLocation extends Notifier<String> {
 		if (updateHistory)
 			_history.push(v);
 		this.dispatch();
-		if (v == "app://science/briefing/intro") {
+		if (v == "app://teacherLogin/") {
 			trace("uri = " + v);
 		}
 		trace("uri = " + v);
 		return v;
+	}
+
+	override public function silentlySet(value:String) {
+		setUriWithoutUpdate(value);
 	}
 
 	public function setUriWithoutUpdate(value:String):Void {

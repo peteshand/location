@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["location", "state", "scene", "url"],
 	"description": "collection of classes to store and control application state/location",
-	"version": "1.0.8",
-	"releasenote": "Update page title on location change",
+	"version": "1.0.9",
+	"releasenote": "add addModifier method",
 	"contributors": [ "p.j.shand" ],
 	"classPath": "src/"
 }

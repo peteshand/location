@@ -21,12 +21,14 @@ class Location extends BaseLocation {
 
 		var initialTitle:String = Browser.document.title;
 		this.add(() -> {
+			trace("this.uri = " + this.uri);
 			Browser.location.hash = "#" + this.uri;
 			Browser.document.title = initialTitle + " - " + this.uri;
 		});
 	}
 
 	function onHashChange(e:Dynamic = null) {
+		trace("Browser.location.hash = " + Browser.location.hash);
 		var hash:String = Browser.location.hash.substring(1);
 		if (hash.indexOf("?") != -1) {
 			var split:Array<String> = hash.split("?");

@@ -22,8 +22,8 @@ class BaseLocation extends Notifier<String> {
 	var _history = new Array<String>();
 	var queueValue:String;
 	var queuedUpdateHistory:Bool = true;
-	var modifiers:Array<String->String> = [];
 
+	// var modifiers:Array<String->String> = [];
 	public var queueURI:Bool = true;
 	public var goBackUri:String;
 
@@ -35,18 +35,11 @@ class BaseLocation extends Notifier<String> {
 		super("");
 	}
 
-	public function addModifier(modifier:String->String) {
-		modifiers.push(modifier);
-	}
-
 	private function get_uri():String {
 		return this.value;
 	}
 
 	private function set_uri(value:String):String {
-		for (modifier in modifiers) {
-			value = modifier(value);
-		}
 		return this.value = value;
 	}
 

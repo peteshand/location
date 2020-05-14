@@ -14,18 +14,18 @@ class LocationCondition extends Condition {
 
 	public function addLocation(location:String, wildcard:Bool = false):Void {
 		if (wildcard) {
-			locations.or(Condition.make(Location.instance.value != null && Location.instance.value.indexOf(location) != -1));
+			locations.or(Condition.make(Location.instance.uri != null && Location.instance.uri.indexOf(location) != -1));
 		} else {
-			locations.or(Condition.make(Location.instance.value == location));
+			locations.or(Condition.make(Location.instance.uri == location));
 		}
 		locations.currentCase.debug = location;
 	}
 
 	public function addLocationMask(location:String, wildcard:Bool = false):Void {
 		if (wildcard) {
-			maskLocations.and(Condition.make(Location.instance.value != null && Location.instance.value.indexOf(location) == -1));
+			maskLocations.and(Condition.make(Location.instance.uri != null && Location.instance.uri.indexOf(location) == -1));
 		} else {
-			maskLocations.and(Condition.make(Location.instance.value != location));
+			maskLocations.and(Condition.make(Location.instance.uri != location));
 		}
 	}
 

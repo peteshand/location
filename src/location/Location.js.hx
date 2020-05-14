@@ -1,6 +1,7 @@
 package location;
 
 import js.Browser;
+import delay.Delay;
 
 /**
  * ...
@@ -17,18 +18,16 @@ class Location extends BaseLocation {
 		var reg = new EReg("([^?=&]+)(=([^&]*))?", "g");
 
 		Browser.window.addEventListener('hashchange', onHashChange);
-		onHashChange();
+		Delay.nextFrame(onHashChange);
 
 		var initialTitle:String = Browser.document.title;
 		this.add(() -> {
-			trace("this.uri = " + this.uri);
-			Browser.location.hash = "#" + this.uri;
+			Browser.location.hash = "#" + this.value;
 			Browser.document.title = initialTitle + " - " + this.uri;
 		});
 	}
 
 	function onHashChange(e:Dynamic = null) {
-		trace("Browser.location.hash = " + Browser.location.hash);
 		var hash:String = Browser.location.hash.substring(1);
 		if (hash.indexOf("?") != -1) {
 			var split:Array<String> = hash.split("?");
@@ -42,11 +41,9 @@ class Location extends BaseLocation {
 					queryStr.set(s[0], s[1]);
 				else
 					queryStr.set(s[0], null);
-				trace(s);
 			}
 		}
-
-		this.uri = hash;
+		this.value = hash;
 	}
 
 	static function get_instance():Location {
